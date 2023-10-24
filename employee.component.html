@@ -1,0 +1,191 @@
+<div class="row">
+    <div class="col-md-4">
+        <h3>Employee Details Entry Form</h3>
+        <div class="outerDiv">
+            <form #form="ngForm">
+                <div class="row">
+                    <div class="col md-4">
+                        <label>Name</label>
+                    </div>
+                    <div class="col md-3">
+                        <input type="text" style="height: 30px;" name="FirstName" required #FirstName="ngModel"
+                            [(ngModel)]="employeeObj.FirstName" class="form-control">
+                        <div *ngIf="FirstName.touched">
+                            <span *ngIf="FirstName.errors?.['required']">Required</span>
+                        </div>
+                    </div>
+                    <div class="col md-4">
+                        <input type="text" style="height: 30px;" name="LastName" required #LastName="ngModel"
+                            [(ngModel)]="employeeObj.LastName" class="form-control">
+                        <div *ngIf="LastName.touched">
+                            <span *ngIf="LastName.errors?.['required']">Required</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col md-4">   
+                        <label>Designation</label>
+                    </div>
+                    <div class="col md-8">
+                        <input type="text" style="height: 30px;" name='Designation' required #Designation="ngModel"
+                            [(ngModel)]="employeeObj.Designation" class="form-control">
+                        <div *ngIf="Designation.touched">
+                            <span *ngIf="Designation.errors?.['required']">Required</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col md-4">
+                        <label>TechSkills</label>
+                    </div>
+                    <div class="col md-7">
+                        <select name="Skills" style="height: 30px;" required [(ngModel)]="employeeObj.Skills" #Skills="ngModel" class="form-control">
+                            <option>Angular</option>
+                            <option>.Net</option>
+                            <option>Java</option>
+                            <option>python</option>
+                        </select>
+                        <div *ngIf="Skills.touched">
+                            <span *ngIf="Skills.errors?.['required']">Required</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col md-4">
+                        <label>Core Expertise in:</label>
+                    </div>
+                    <div class="col md-8">
+                        <input type="text" style="height: 30px;" name="Core" required #Core="ngModel"
+                            [(ngModel)]="employeeObj.Core" class="form-control">
+                        <div *ngIf="Core.touched">
+                            <span *ngIf="Core.errors?.['required']">Required</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col md-4">
+                        <label>Certificates If any:</label>
+                    </div>
+                    <div class="col md-8">
+                        <input type="radio" style="height: 30px;" value="yes" name="IsCertification"
+                            [(ngModel)]="employeeObj.IsCertification " /> Yes
+                        <input type="radio" style="height: 30px;" value="no" name="IsCertification"
+                            [(ngModel)]="employeeObj.IsCertification " /> No
+                    </div>
+                </div>
+
+
+                <div class="row">
+                   
+                    <div class="col md-8">
+                        <input type="text" [disabled]="employeeObj.IsCertification == 'No' " style="height: 30px;" name="Certification" required #Certification="ngModel"
+                            [(ngModel)]="employeeObj.Certification" class="form-control">
+                        
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col md-4">
+                        <label>Company</label>
+                    </div>
+                    <div class="col md-8">
+                        <input type="text" style="height: 30px;" name="Company" required #Company="ngModel"
+                            [(ngModel)]="employeeObj.Company" class="form-control">
+                        <div *ngIf="Company.touched">
+                            <span *ngIf="Company.errors?.['required']">Required</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col md-4">
+                        <label>Few Lines about yourself</label>
+                        <textarea row="3" name="FewDetails" required #FewDetails="ngModel"
+                            [(ngModel)]="employeeObj.FewDetails" class="form-control"></textarea>
+                        <div *ngIf="FewDetails.touched">
+                            <span *ngIf="FewDetails.errors?.['required']">Required</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col md-6 text-end">
+                        <button class="btn btn-secondary" (click)="onSave()">Save</button>
+                       
+                        
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+
+    <div class="col md-8">
+        <h3>Employee List</h3>
+        <div class="outerDiv">
+
+            <div class="row">
+                <div class="col md-6">
+
+
+                </div>
+                <div class="col md-3">
+                    <select [(ngModel)]="sortBy" class="form-control">
+                        <option>Select</option>
+                        <option>Name</option>
+                        <option>Technology</option>
+                        <option>Designation</option>
+                        <option>Skills</option>
+                        <option>Core</option>
+                        <option>Company</option>
+                    </select>
+                </div>
+                <div class="col md-3">
+                    <input type="text" [(ngModel)]="searchText" (ngModelChange)="onSearch()" class="form-control">
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col md-12">
+                    <table class="table table-bpr">
+                        <thead>
+                            <tr>
+                                <th>Srno</th>
+                                <th>Name</th>
+                                <th>Designation</th>
+                                <th>TechSkills</th>
+                                <th>Core Expertise in</th>
+                                <th>Company</th>
+                                
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngIf="employeeArr.length !=0">
+                                <tr *ngFor="let item of employeeArr;let sr=index">
+                                    <td>{{sr+1}}</td>
+                                    <td>{{item.FirstName}}  {{item.LastName}}</td>
+                                    <td>{{item.Designation}}</td>
+                                    <td>{{item.Skills}}</td>
+                                    <td>{{item.Core}}</td>
+                                    <td>{{item.Company}}</td>
+                                   
+                                    </tr>
+                           </ng-container>
+                           <ng-container *ngIf="employeeArr.length == 0">
+                            <tr>
+                                <td colspan="8" class="text-center">No Record Found</td>
+                            </tr>
+                           </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
