@@ -18,42 +18,44 @@ export class EmployeeComponent implements OnInit {
   }
   resetObj() {
     this.employeeObj = {
-      "empId": 0,
-      "empName": "",
-      "empContactNo": "",
-      "empEmail": "",
-      "addressLine1": "",
-      "addressLine2": "",
-      "pincode": "",
-      "city": "",
-      "state": "",
-      "bankName": "",
-      "iFSC": "",
-      "accountNo": "",
-      "bankBranch": "",
-      "salary": 0
+      "EmpId": 0,
+      "Username": "",
+      "EmpContactNo": "",
+      "Empemail": "",
+      "AddressLine1": "",
+      "AddressLine2": "",
+      "Pincode": "",
+      "City": "",
+      "State": "",
+      "BankName": "",
+      "Ifsc": "",
+      "AccountNo": "",
+      "BankBranch": "",
+      "Salary": 0,
+      "Password":"",
     }
 
   }
 
   ngOnInit(): void {
-    debugger;
+    
     this.loadAllEmployee();
   }
   loadAllEmployee() {
     debugger;
-    this.empsrv.getAllEmployee().subscribe((res: any) => {
+    this.empsrv.getAllEmployee().subscribe((res:any) => {
       debugger;
       this.employeeArray = res.data;
     })
   }
   onSave() {
     debugger;
-    this.empsrv.CreateEmployee(this.employeeObj).subscribe((res: any) => {
-      debugger;
+    this.empsrv.createEmployee(this.employeeObj).subscribe((res:any) => {
       if (res.result) {
         this.loadAllEmployee();
         alert(res.message);
+        this.resetObj();  
+       
       } else {
         alert(res.message);
       }
@@ -61,10 +63,11 @@ export class EmployeeComponent implements OnInit {
   }
   onUpdate(){
     this.empsrv.updateEmployee(this.employeeObj).subscribe((res: any) => {
-      debugger;
+    debugger;
       if (res.result) {
         this.loadAllEmployee();
         alert(res.message);
+        this.resetObj(); 
       } else {
         alert(res.message);
       }
@@ -77,9 +80,9 @@ export class EmployeeComponent implements OnInit {
     })
 
   }
-  onDelete(empId:number){
-    this.empsrv.deleteEmpById(empId).subscribe((res: any) => {
-      debugger;
+  onDelete(EmpId:number){
+    this.empsrv.deleteEmpById(EmpId).subscribe((res: any) => {
+   debugger;
       if (res.result) {
         this.loadAllEmployee();
         alert(res.message);
