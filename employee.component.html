@@ -1,3 +1,4 @@
+<
 <div class="row">
   <div class="col-8">
     <div class="card">
@@ -26,14 +27,15 @@
           <tbody>
             <tr *ngFor="let item of employeeArray;let sr=index">
               <td>{{sr+1}}</td>
-              <td>{{item.Empname}}</td>
-              <td>{{item.EmpContactNo}}</td>
-              <td>{{item.Empemail}}</td>
+              <td>{{item.Name}}</td>
+              <td>{{item.ContactNo}}</td>
+              <td>{{item.Email}}</td>
               <td>{{item.City}}</td>
               <td>
+                <mat-icon class="custom-icon" (click)="onEdit(item._id)">edit </mat-icon>
                
-                <button class="btn btn-success btn-sm" (click)="onEdit(item.EmpId)" >Edit</button>
-                <button class="btn btn-danger btn-sm mx-2" (click)="onDelete(item.EmpId)" >Delete</button>
+                <mat-icon class="delete-icon" (click)="onDelete(item._id)">delete_forever </mat-icon>
+             
               </td>
             </tr>
           </tbody>
@@ -60,42 +62,70 @@
           <div class="row">
             <div class="col-6">
               <label for="">Name</label>
-              <input type="text" class="form-control" name="Empname" [(ngModel)]="employeeObj.Empname"> 
+              <span class="required-symbol">*</span>
+              <input type="text" class="form-control" name="Name" [(ngModel)]="employeeObj.Name"> 
+            </div>
+            <div class="col-6">
+              <label for="">UserName</label>
+              <span class="required-symbol">*</span>
+              <input type="text" class="form-control" name="UserName" [(ngModel)]="employeeObj.UserName"> 
+            </div>
+            <div class="col-6">
+               <label for="Gender">Select Gender:</label>
+                <select id="Gender" [(ngModel)]="employeeObj.Gender" name="Gender" >
+                <option *ngFor="let gender of Gender" [value]="gender">{{ gender }}</option>
+                </select>
+            
+              
+              <!--<input type="text" class="form-control" name="Gender" [(ngModel)]="employeeObj.Gender"> --> 
+              
+            </div>
+            <div class="col-6">
+              <label for="">DOB</label>
+              <span class="required-symbol">*</span>
+              <input type="date" class="form-control" name="DOB" [(ngModel)]="employeeObj.DOB"> 
+            </div>
+            <div class="col-6">
+              <label for="">DOJ</label>
+              <span class="required-symbol">*</span>
+              <input type="date" class="form-control" name="DOJ" [(ngModel)]="employeeObj.DOJ"> 
             </div>
             <div class="col-6">
               <label for="">ContactNo</label>
-              <input type="text" class="form-control" name="EmpContactNo" [(ngModel)]="employeeObj.EmpContactNo"> 
+              <input type="text" class="form-control" name="ContactNo" [(ngModel)]="employeeObj.ContactNo"> 
             </div>
             <div class="col-6">
               <label for="">Email</label>
-              <input type="text" class="form-control" name="Empemail" [(ngModel)]="employeeObj.Empemail"> 
+              <span class="required-symbol">*</span>
+              <input type="Email" class="form-control" name="Email" [(ngModel)]="employeeObj.Email"> 
+            </div>
+
+            <div class="col-6">
+              <label for="">Address</label>
+              <textarea name="Address" class="form-control" col="2" [(ngModel)]="employeeObj.Address"></textarea>
             </div>
             <div class="col-6">
-              <label for="">AddressLine1</label>
-              <textarea name="AddressLine1"class="form-control" col="2" [(ngModel)]="employeeObj.AddressLine1"></textarea>
+              <label for="">Designation</label>
+              <span class="required-symbol">*</span>
+              <input type="Designation" class="form-control" name="Designation" [(ngModel)]="employeeObj.Designation"> 
             </div>
             <div class="col-6">
-              <label for="">AddressLine2</label>
-              <textarea name="AddressLine2" class="form-control" col="2" [(ngModel)]="employeeObj.AddressLine2"></textarea>
-            </div>
-            <div class="col-6">
-              <label for="">Pincode</label>
-              <input type="text" class="form-control" name="Pincode" [(ngModel)]="employeeObj.Pincode"> 
-            </div>
-            <div class="col-6">
-              <label for="">City</label>
-              <input type="text" class="form-control" name="City" [(ngModel)]="employeeObj.City"> 
-            </div>
-            <div class="col-6">
-              <label for="">State</label>
-              <input type="text" class="form-control" name="State" [(ngModel)]="employeeObj.State"> 
+              <label for="">OrgName</label>
+              <input type="text" class="form-control" name="OrgName" [(ngModel)]="employeeObj.OrgName"> 
             </div>
             <div class="col-6">
               <label for="">BankName</label>
+              <span class="required-symbol">*</span>
               <input type="text" class="form-control" name="BankName" [(ngModel)]="employeeObj.BankName"> 
             </div>
             <div class="col-6">
+              <label for="">BankBranch</label>
+              <span class="required-symbol">*</span>
+              <input type="text" class="form-control" name="Branch" [(ngModel)]="employeeObj.Branch"> 
+            </div>
+            <div class="col-6">
               <label for="">Ifsc</label>
+              <span class="required-symbol">*</span>
               <input type="text" class="form-control" name="Ifsc" [(ngModel)]="employeeObj.Ifsc"> 
             </div>
             <div class="col-6">
@@ -103,30 +133,70 @@
               <input type="text" class="form-control" name="AccountNo" [(ngModel)]="employeeObj.AccountNo"> 
             </div>
             <div class="col-6">
-              <label for="">BankBranch</label>
-              <input type="text" class="form-control" name="BankBranch" [(ngModel)]="employeeObj.BankBranch"> 
-            </div>
-            <div class="col-6">
               <label for="">Salary</label>
               <input type="text" class="form-control" name="Salary" [(ngModel)]="employeeObj.Salary"> 
+            </div>
+            <div class="col-6">
+              <label for="MaritalStatus">Select MaritalStatus:</label>
+                <select id="MaritalStatus" [(ngModel)]="employeeObj.MaritalStatus" name="MaritalStatus" >
+                <option *ngFor="let status of MaritalStatus" [value]="status">{{ status }}</option>
+                </select>
+            
+              <!--<label for="">MaritalStatus</label>
+              <input type="text" class="form-control" name="MaritalStatus" [(ngModel)]="employeeObj.MaritalStatus"> -->
+            </div>
+            <div class="col-6">
+              <label for="">BloodGroup</label>
+              <input type="text" class="form-control" name="BloodGroup" [(ngModel)]="employeeObj.BloodGroup"> 
             </div>
             <div class="col-6">
               <label for="">Password</label>
               <input type="password" class="form-control" name="Password" [(ngModel)]="employeeObj.Password"> 
             </div>
-
-          </div>
-          <div class="row pt-3" >
-            <div class="col-6 text-center">
-              <button class="btn btn-secondary btn-sm">Reset</button>
+            <div class="col-6">
+              <label for="">City</label>
+              <input type="text" class="form-control" name="City" [(ngModel)]="employeeObj.City"> 
             </div>
-            <div class="col-6 text-center">
-            
-              <button class="btn btn-success btn-sm" *ngIf="employeeObj.EmpId == 0" (click)="onSave()"> Save Employee </button>
-              <button class="btn btn-warning btn-sm" *ngIf="employeeObj.EmpId !== 0" (click)="onUpdate()"> Update Employee </button>
+            <div class="col-6">
+              <label for="">Pincode</label>
+              <input type="text" class="form-control" name="Pincode" [(ngModel)]="employeeObj.Pincode"> 
             </div>
-           
+            <div class="col-6">
+              <label for="">State</label>
+              <input type="text" class="form-control" name="State" [(ngModel)]="employeeObj.State"> 
+            </div>
+            <div class="col-6">
+              <label for="">Usertype</label>
+              <span class="required-symbol">*</span>
+              <select id="Usertype" [(ngModel)]="employeeObj.Usertype" name="Usertype">
+                <option *ngFor="let role of UserType" [value]="role">{{role}}</option>
+                
+              </select>
+              <!-- <div>
+                <label for="role">Select Role:</label>
+                <select id="role" [(ngModel)]="selectedRole">
+                  <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+                </select>
+                <p>You selected: {{ selectedRole }}</p>
+              </div>
+            <input type="text" class="form-control" name="Usertype" [(ngModel)]="employeeObj.Usertype">-->
+            </div>      
           </div>
+          <div class="row pt-2" >
+            <div class="col-6 text-center">
+             <!-- <button type="reset" class="btn btn-secondary btn-sm">Reset</button>
+              <button   class="btn btn-warning btn-sm" (click)="onUpdate()" >update</button>
+      
+            <button class="btn btn-success btn-sm"  (click)="onSave()"> Save </button>-->
+            <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+              <mat-button-toggle type="reset" value="bold">Reset</mat-button-toggle>
+               <mat-button-toggle value="italic"  (click)="onUpdate()">update</mat-button-toggle>
+              <mat-button-toggle value="underline" (click)="onSave()">Save</mat-button-toggle>
+            </mat-button-toggle-group>
+          
+          </div>
+          
+             </div>
         </form>
 
       </div>

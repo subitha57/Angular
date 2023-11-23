@@ -10,30 +10,39 @@ import { EmployeeService } from 'src/app/service/employee.service';
 
 
 export class EmployeeComponent implements OnInit {
+  
   employeeArray: any[] = [];
   employeeObj: any;
 
   constructor(private empsrv: EmployeeService) {
     this.resetObj();
+
   }
   resetObj() {
     this.employeeObj = {
-      "EmpId": 0,
-      "Username": "",
-      "EmpContactNo": "",
-      "Empemail": "",
-      "AddressLine1": "",
-      "AddressLine2": "",
-      "Pincode": "",
-      "City": "",
-      "State": "",
+      "Name": "",
+      "UserName":"",
+      "Gender":"",
+      "DOB":"10-04-1990",
+      "DOJ":"01-09-2023",
+      "ContactNo": "",
+      "Email": "",
+      "Address": "",
+      "Designation":"",
+      "OrgName":"",
       "BankName": "",
+      "Branch": "",
       "Ifsc": "",
       "AccountNo": "",
-      "BankBranch": "",
-      "Salary": 0,
+      "Salary": "",
+      "MaritalStatus":"",
+      "BloodGroup":"",
       "Password":"",
-    }
+      "City": "",
+      "Pincode": "",
+      "State": "",
+      "Usertype":""
+     }
 
   }
 
@@ -42,14 +51,14 @@ export class EmployeeComponent implements OnInit {
     this.loadAllEmployee();
   }
   loadAllEmployee() {
-    debugger;
+    
     this.empsrv.getAllEmployee().subscribe((res:any) => {
-      debugger;
+   
       this.employeeArray = res.data;
     })
   }
   onSave() {
-    debugger;
+  
     this.empsrv.createEmployee(this.employeeObj).subscribe((res:any) => {
       if (res.result) {
         this.loadAllEmployee();
@@ -61,8 +70,8 @@ export class EmployeeComponent implements OnInit {
       }
     })
   }
-  onUpdate(){
-    this.empsrv.updateEmployee(this.employeeObj).subscribe((res: any) => {
+  /*onUpdate(){
+    this.empsrv.updateEmployee(this.employeeObj._id,this.employeeObj).subscribe((res: any) => {
     debugger;
       if (res.result) {
         this.loadAllEmployee();
@@ -72,16 +81,36 @@ export class EmployeeComponent implements OnInit {
         alert(res.message);
       }
     })
-
+  }*/
+  onUpdate() {
+    this.empsrv.updateEmployee(this.employeeObj._id, this.employeeObj).subscribe((res: any) => {
+      if (res.result) {
+        // Update the data array with the updated employee details
+        const updatedEmployeeIndex = this.employeeArray.findIndex(emp => emp._id === this.employeeObj._id);
+        if (updatedEmployeeIndex !== -1) {
+          this.employeeArray[updatedEmployeeIndex] = { ...this.employeeObj };
+        }
+        alert(res.message);
+        this.resetObj();
+      } else {
+        alert(res.message);
+      }
+    });
   }
-  onEdit(id:number){
-    this.empsrv.getEmpById(id).subscribe((res:any)=>{
-      this.employeeObj =res.data;
-    })
-
+  onDelete(id: string) {
+    if (confirm('Are you sure you want to delete this user?')) {
+      this.empsrv.deleteUser(id).subscribe((res: any) => {
+        if (res.result) {
+          this.loadAllEmployee(); // Reload the user list after deletion
+          alert(res.message);
+        } else {
+          alert(res.message);
+        }
+      });
+    }
   }
-  onDelete(EmpId:number){
-    this.empsrv.deleteEmpById(EmpId).subscribe((res: any) => {
+   /*onDelete(Empid:number){
+    this.empsrv.delete(Empid).subscribe((res: any) => {
    debugger;
       if (res.result) {
         this.loadAllEmployee();
@@ -91,5 +120,19 @@ export class EmployeeComponent implements OnInit {
       }
     })
 
+  }*/
+  onEdit(id:number){
+    this.empsrv.getEmpById(id).subscribe((res:any)=>{
+      this.employeeObj =res.data;
+    })
+
   }
+  Gender: string[] = ['Male', 'Female', 'Other'];
+  selectedGender: string = '';
+
+  MaritalStatus: string[] = ['Married', 'Single'];
+  selectedMaritalStatus: string = '';
+  
+    UserType: string[] = ['HR', 'Employee', 'Manager', 'Admin'];
+  selectedRole: string = '';
 }

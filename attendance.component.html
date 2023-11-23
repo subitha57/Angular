@@ -1,0 +1,42 @@
+<div class="container">
+<div class="row">
+  <div class="col-6">
+    <label for="">Select Employee</label>
+    <select name="id" class="form-control" [(ngModel)]="id" (change)="onToggle()" >
+      <option *ngFor="let emp of employeeArray" [value]="emp._id">{{emp.UserName}}</option>
+    </select>
+
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <mat-slide-toggle [(ngModel)]="isChecked" (change)="onToggle()">
+        {{ isChecked ? 'Checked In' : 'Checked Out' }}
+      </mat-slide-toggle>
+  </div>
+</div>
+  <div class="col-6">
+    <label for="">Attendance Date</label>
+    <input type="date" class="form-control" name="attendanceDate" [(ngModel)]="attendanceObj.attendanceDate">
+  </div>
+  
+    
+</div>
+ 
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Check-In</th>
+      <th>Check-Out</th>
+      <th>Working Hours</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let record of employeeArray">
+      <td>{{ record.attendanceDate | date:'shortDate' }}</td>
+      <td>{{ record.checkIn | date:'shortTime' }}</td>
+      <td>{{ record.checkOut | date:'shortTime' }}</td>
+      <td>{{ calculateWorkingHours(record.checkIn, record.checkOut) }}</td>
+    </tr>
+  </tbody>
+</table>

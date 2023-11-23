@@ -1,5 +1,10 @@
-import { Component,OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { AuthService } from 'src/app/login/auth.service';
+
+
 
 @Component({
   selector: 'app-login',
@@ -8,39 +13,25 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent {
 
-  formdata={email:"",password:''};
-  submit=false;
-  loading=false;
-  errorMessage="";
-  constructor(private auth:AuthService){
+  UserName:string='';
+ OrgName:string="";
+ Password:string='';
+  
+
+  constructor(private router:Router,private authService:AuthService) {}
+
+  
+  onSubmit() {
+    this.authService.login(this.UserName,this.OrgName, this.Password).subscribe(
+      (response) => {
+        console.log('Login successful:', response);
+        this.router.navigateByUrl("dashboard")
+      },
+     
+    );
   }
-ngOnInit(){
-  this.auth.canAuthendicate();
+  hide=true;
+  
 }
 
-onSubmit(){
-  this.loading=true; 
- this.auth.login(this.formdata.email, this.formdata.password)
- .subscribe({
-  next:data=>{
-    this.auth.storeToken(data.idToken);
-    console.log('logged user token is '+data.idToken);
-    this.auth.canAuthendicate();
-    
-  },
-  error:data=>{
-    if(data.error.error.message=="INVALID_PASSWORD" ||data.error.error.message=="INVALID_EMAIL"){
-      this.errorMessage="Invalid credentials !";
-    }else{
-      this.errorMessage="unknown";
-    }
-
-  }
-  }).add(()=>{
-    this.loading=false;
-    console.log('login process completed')
-  })
- }
-
-}
 
