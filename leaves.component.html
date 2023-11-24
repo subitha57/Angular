@@ -1,0 +1,15 @@
+<div>
+    <h2>Leave Request</h2>
+    <form (ngSubmit)="onSubmit()">
+      <label for="startDate">Start Date:</label>
+      <input type="date" id="startDate" [(ngModel)]="leaveStartDate" required>
+  
+      <label for="endDate">End Date:</label>
+      <input type="date" id="endDate" [(ngModel)]="leaveEndDate" required>
+  
+      <label for="leaveType">Leave Type:</label>
+      <input type="text" id="leaveType" [(ngModel)]="leaveType" required>
+  
+      <button type="submit">Submit</button>
+    </form>
+  </div>
