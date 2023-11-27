@@ -1,6 +1,15 @@
 <div>
     <h2>Leave Request</h2>
     <form (ngSubmit)="onSubmit()">
+      <label for="username">Username</label>
+      <input type="text" id="username" [(ngModel)]="username" required>
+  
+      <label for="Name">Name</label>
+      <input type="text" id="Name" [(ngModel)]="Name" required>
+
+      <label for="Gender">Gender</label>
+      <input type="text" id="Gender" [(ngModel)]="Gender" required>
+  
       <label for="startDate">Start Date:</label>
       <input type="date" id="startDate" [(ngModel)]="leaveStartDate" required>
   
@@ -9,6 +18,12 @@
   
       <label for="leaveType">Leave Type:</label>
       <input type="text" id="leaveType" [(ngModel)]="leaveType" required>
+
+      <label for="Numberofdays">Numberofdays</label>
+      <input type="text" id="Numberofdays" [(ngModel)]="Numberofdays" required>
+
+      <label for="Reason">Reason</label>
+      <input type="text" id="Reason" [(ngModel)]="Reason" required>
   
       <button type="submit">Submit</button>
     </form>

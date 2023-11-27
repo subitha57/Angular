@@ -1,4 +1,4 @@
-<
+
 <div class="row">
   <div class="col-8">
     <div class="card">
@@ -18,8 +18,8 @@
             <tr>
               <th>Sr No</th>
               <th>Name</th>
-              <th>Contact No</th>
-              <th>Email</th>
+              <th>Contact</th>
+              <th>email</th>
               <th>City</th>
               <th>Action</th>
             </tr>
@@ -28,13 +28,13 @@
             <tr *ngFor="let item of employeeArray;let sr=index">
               <td>{{sr+1}}</td>
               <td>{{item.Name}}</td>
-              <td>{{item.ContactNo}}</td>
-              <td>{{item.Email}}</td>
+              <td>{{item.Contact}}</td>
+              <td>{{item.email}}</td>
               <td>{{item.City}}</td>
               <td>
                 <mat-icon class="custom-icon" (click)="onEdit(item._id)">edit </mat-icon>
                
-                <mat-icon class="delete-icon" (click)="onDelete(item._id)">delete_forever </mat-icon>
+                <mat-icon class="delete-icon" (click)="onDelete(item.username)">delete_forever </mat-icon>
              
               </td>
             </tr>
@@ -65,20 +65,27 @@
               <span class="required-symbol">*</span>
               <input type="text" class="form-control" name="Name" [(ngModel)]="employeeObj.Name"> 
             </div>
+            <div class="row">
+              <div class="col-6">
+                <label for="">Age</label>
+                <input type="text" class="form-control" name="Age" [(ngModel)]="employeeObj.Age"> 
+              </div>
             <div class="col-6">
               <label for="">UserName</label>
               <span class="required-symbol">*</span>
-              <input type="text" class="form-control" name="UserName" [(ngModel)]="employeeObj.UserName"> 
+              <input type="text" class="form-control" name="username" [(ngModel)]="employeeObj.username"> 
             </div>
             <div class="col-6">
                <label for="Gender">Select Gender:</label>
                 <select id="Gender" [(ngModel)]="employeeObj.Gender" name="Gender" >
                 <option *ngFor="let gender of Gender" [value]="gender">{{ gender }}</option>
                 </select>
-            
-              
               <!--<input type="text" class="form-control" name="Gender" [(ngModel)]="employeeObj.Gender"> --> 
-              
+            </div>
+            <div class="col-6">
+              <label for="">Dateofjoining</label>
+              <span class="required-symbol">*</span>
+              <input type="date" class="form-control" name="Dateofjoining" [(ngModel)]="employeeObj.Dateofjoining"> 
             </div>
             <div class="col-6">
               <label for="">DOB</label>
@@ -86,32 +93,26 @@
               <input type="date" class="form-control" name="DOB" [(ngModel)]="employeeObj.DOB"> 
             </div>
             <div class="col-6">
-              <label for="">DOJ</label>
-              <span class="required-symbol">*</span>
-              <input type="date" class="form-control" name="DOJ" [(ngModel)]="employeeObj.DOJ"> 
-            </div>
-            <div class="col-6">
               <label for="">ContactNo</label>
-              <input type="text" class="form-control" name="ContactNo" [(ngModel)]="employeeObj.ContactNo"> 
+              <input type="text" class="form-control" name="Contact" [(ngModel)]="employeeObj.Contact"> 
             </div>
             <div class="col-6">
               <label for="">Email</label>
               <span class="required-symbol">*</span>
-              <input type="Email" class="form-control" name="Email" [(ngModel)]="employeeObj.Email"> 
+              <input type="email" class="form-control" name="email" [(ngModel)]="employeeObj.email"> 
             </div>
 
             <div class="col-6">
               <label for="">Address</label>
               <textarea name="Address" class="form-control" col="2" [(ngModel)]="employeeObj.Address"></textarea>
             </div>
-            <div class="col-6">
-              <label for="">Designation</label>
-              <span class="required-symbol">*</span>
-              <input type="Designation" class="form-control" name="Designation" [(ngModel)]="employeeObj.Designation"> 
+                       <div class="col-6">
+              <label for="">ORGName</label>
+              <input type="text" class="form-control" name="ORGName" [(ngModel)]="employeeObj.ORGName"> 
             </div>
             <div class="col-6">
-              <label for="">OrgName</label>
-              <input type="text" class="form-control" name="OrgName" [(ngModel)]="employeeObj.OrgName"> 
+              <label for="">Role</label>
+              <input type="text" class="form-control" name="Role" [(ngModel)]="employeeObj.Role"> 
             </div>
             <div class="col-6">
               <label for="">BankName</label>
@@ -137,9 +138,9 @@
               <input type="text" class="form-control" name="Salary" [(ngModel)]="employeeObj.Salary"> 
             </div>
             <div class="col-6">
-              <label for="MaritalStatus">Select MaritalStatus:</label>
-                <select id="MaritalStatus" [(ngModel)]="employeeObj.MaritalStatus" name="MaritalStatus" >
-                <option *ngFor="let status of MaritalStatus" [value]="status">{{ status }}</option>
+              <label for="Maritalstatus">Select MaritalStatus:</label>
+                <select id="Maritalstatus" [(ngModel)]="employeeObj.Maritalstatus" name="Maritalstatus" >
+                <option *ngFor="let status of Maritalstatus" [value]="status">{{ status }}</option>
                 </select>
             
               <!--<label for="">MaritalStatus</label>
@@ -150,8 +151,8 @@
               <input type="text" class="form-control" name="BloodGroup" [(ngModel)]="employeeObj.BloodGroup"> 
             </div>
             <div class="col-6">
-              <label for="">Password</label>
-              <input type="password" class="form-control" name="Password" [(ngModel)]="employeeObj.Password"> 
+              <label for="">password</label>
+              <input type="password" class="form-control" name="password" [(ngModel)]="employeeObj.password"> 
             </div>
             <div class="col-6">
               <label for="">City</label>
@@ -166,10 +167,10 @@
               <input type="text" class="form-control" name="State" [(ngModel)]="employeeObj.State"> 
             </div>
             <div class="col-6">
-              <label for="">Usertype</label>
+              <label for="">usertype</label>
               <span class="required-symbol">*</span>
-              <select id="Usertype" [(ngModel)]="employeeObj.Usertype" name="Usertype">
-                <option *ngFor="let role of UserType" [value]="role">{{role}}</option>
+              <select id="usertype" [(ngModel)]="employeeObj.usertype" name="usertype">
+                <option *ngFor="let role of usertype" [value]="role">{{role}}</option>
                 
               </select>
               <!-- <div>
@@ -187,13 +188,13 @@
              <!-- <button type="reset" class="btn btn-secondary btn-sm">Reset</button>
               <button   class="btn btn-warning btn-sm" (click)="onUpdate()" >update</button>
       
-            <button class="btn btn-success btn-sm"  (click)="onSave()"> Save </button>-->
-            <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+             <button class="btn btn-success btn-sm"  (click)="onSave()"> Save </button>-->
+             <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
               <mat-button-toggle type="reset" value="bold">Reset</mat-button-toggle>
                <mat-button-toggle value="italic"  (click)="onUpdate()">update</mat-button-toggle>
               <mat-button-toggle value="underline" (click)="onSave()">Save</mat-button-toggle>
             </mat-button-toggle-group>
-          
+          </div>
           </div>
           
              </div>

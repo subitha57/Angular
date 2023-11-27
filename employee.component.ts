@@ -21,27 +21,28 @@ export class EmployeeComponent implements OnInit {
   resetObj() {
     this.employeeObj = {
       "Name": "",
-      "UserName":"",
+      "username":"",
       "Gender":"",
+      "Age":"",
       "DOB":"10-04-1990",
-      "DOJ":"01-09-2023",
-      "ContactNo": "",
-      "Email": "",
+      "Dateofjoining":"01-09-2023",
+      "Contact": "",
+      "email": "",
       "Address": "",
-      "Designation":"",
-      "OrgName":"",
+      "ORGName":"",
       "BankName": "",
       "Branch": "",
       "Ifsc": "",
       "AccountNo": "",
       "Salary": "",
-      "MaritalStatus":"",
+      "Maritalstatus":"",
       "BloodGroup":"",
-      "Password":"",
+      "password":"",
       "City": "",
       "Pincode": "",
       "State": "",
-      "Usertype":""
+      "usertype":"",
+      "Role":""
      }
 
   }
@@ -121,8 +122,8 @@ export class EmployeeComponent implements OnInit {
     })
 
   }*/
-  onEdit(id:number){
-    this.empsrv.getEmpById(id).subscribe((res:any)=>{
+  onEdit(username:string){
+    this.empsrv.getEmpById(username).subscribe((res:any)=>{
       this.employeeObj =res.data;
     })
 
@@ -130,9 +131,9 @@ export class EmployeeComponent implements OnInit {
   Gender: string[] = ['Male', 'Female', 'Other'];
   selectedGender: string = '';
 
-  MaritalStatus: string[] = ['Married', 'Single'];
+  Maritalstatus: string[] = ['Married', 'Single'];
   selectedMaritalStatus: string = '';
   
-    UserType: string[] = ['HR', 'Employee', 'Manager', 'Admin'];
+    usertype: string[] = ['HR', 'Employee', 'Manager', 'Admin'];
   selectedRole: string = '';
 }
