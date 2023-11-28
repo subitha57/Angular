@@ -84,10 +84,10 @@ export class EmployeeComponent implements OnInit {
     })
   }*/
   onUpdate() {
-    this.empsrv.updateEmployee(this.employeeObj._id, this.employeeObj).subscribe((res: any) => {
+    this.empsrv.updateEmployee(this.employeeObj.username, this.employeeObj).subscribe((res: any) => {
       if (res.result) {
         // Update the data array with the updated employee details
-        const updatedEmployeeIndex = this.employeeArray.findIndex(emp => emp._id === this.employeeObj._id);
+        const updatedEmployeeIndex = this.employeeArray.findIndex(emp => emp.username === this.employeeObj.username);
         if (updatedEmployeeIndex !== -1) {
           this.employeeArray[updatedEmployeeIndex] = { ...this.employeeObj };
         }
@@ -98,9 +98,9 @@ export class EmployeeComponent implements OnInit {
       }
     });
   }
-  onDelete(id: string) {
+  onDelete(username:string) {
     if (confirm('Are you sure you want to delete this user?')) {
-      this.empsrv.deleteUser(id).subscribe((res: any) => {
+      this.empsrv.deleteUser(username).subscribe((res: any) => {
         if (res.result) {
           this.loadAllEmployee(); // Reload the user list after deletion
           alert(res.message);
@@ -123,17 +123,18 @@ export class EmployeeComponent implements OnInit {
 
   }*/
   onEdit(username:string){
-    this.empsrv.getEmpById(username).subscribe((res:any)=>{
+    this.empsrv.getEmpByName(username).subscribe((res:any)=>{
       this.employeeObj =res.data;
     })
-
   }
+  
+
   Gender: string[] = ['Male', 'Female', 'Other'];
   selectedGender: string = '';
 
   Maritalstatus: string[] = ['Married', 'Single'];
   selectedMaritalStatus: string = '';
   
-    usertype: string[] = ['HR', 'Employee', 'Manager', 'Admin'];
+    usertype: string[] = ['HR', 'Staff', 'Admin'];
   selectedRole: string = '';
 }
